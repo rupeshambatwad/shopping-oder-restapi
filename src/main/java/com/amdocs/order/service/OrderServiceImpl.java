@@ -31,8 +31,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public OrderDto createOrder(OrderDto orderDto) {
-		return null;
+	public OrderDto createOrder(OrderDto orderDto) throws Exception {
+		Order order;
+		try {
+			order = orderRepository.save(orderDto.getOrder());
+		} catch (Exception exc) {
+			throw new Exception("exception occured" +exc.getMessage());
+		}
+		return mapToDto(order);
 	}
 
 	@Override

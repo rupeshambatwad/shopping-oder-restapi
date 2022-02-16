@@ -27,11 +27,11 @@ import lombok.ToString;
 public class Order {
 	@Id
 	@GeneratedValue
-	private int id;
-	private int price;
+	private long id;
+	private long price;
 	private int qty;
 	private Date dateTime;
-	@OneToMany(targetEntity = Product.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="fk_name" , referencedColumnName = "id")
+	@OneToMany(targetEntity = Product.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name="ord_prod_pk" , referencedColumnName = "id")
 	private List<Product> products;
 }

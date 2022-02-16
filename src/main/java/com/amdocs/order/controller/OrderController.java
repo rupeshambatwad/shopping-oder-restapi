@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amdocs.order.dto.OrderDto;
@@ -28,10 +29,12 @@ public class OrderController {
 	{
 		return null;
 	}
-	public OrderDto createOrder(@RequestBody OrderDto orderDto)
-	{
-		return null;
+
+	@PostMapping("/createOrder")
+	public OrderDto createOrder(@RequestBody OrderDto orderDto) throws Exception {
+		return orderService.createOrder(orderDto);
 	}
+
 	public void deleteOrder(long id)
 	{
 		

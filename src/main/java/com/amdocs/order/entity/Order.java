@@ -16,20 +16,22 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Entity
-@Table(name = "orders")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Table(name = "Orders")
+@Entity
 public class Order {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	private long price;
+	@GeneratedValue
+	private int id;
+	private int price;
 	private int qty;
 	private Date dateTime;
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name="ordprod" , referencedColumnName = "id")
-	private List<Product> product;
+	@OneToMany(targetEntity = Product.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="fk_name" , referencedColumnName = "id")
+	private List<Product> products;
 }

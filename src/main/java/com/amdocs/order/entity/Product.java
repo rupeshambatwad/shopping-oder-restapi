@@ -13,10 +13,9 @@ import lombok.ToString;
 @ToString
 @Entity
 public class Product {
-	
-	@Id
-	private int prodId;
-	private String prodName;
-	private int prodPrice;
 
+	@Id
+	private long prodId;
+	private String prodName;
+	private long prodPrice;
 }

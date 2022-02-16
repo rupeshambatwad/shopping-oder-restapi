@@ -1,10 +1,14 @@
 package com.amdocs.order.dto;
 
 import com.amdocs.order.entity.Order;
+import com.amdocs.order.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -12,6 +16,9 @@ import lombok.ToString;
 @ToString
 public class OrderDto {
 
-    private Order order;
-
+    private long id;
+    private long price;
+    private int qty;
+    private Date dateTime;
+    private List<Product> products;
 }

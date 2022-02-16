@@ -10,6 +10,7 @@ public interface OrderService {
 	public OrderDto findOrderById(long id);
 	public List<OrderDto> findAllOrders();
 	public OrderDto createOrder(OrderDto orderDto) throws Exception;
+	public List<OrderDto> createBulkOrder(List<OrderDto> orderDtos) throws Exception;
 	public void deleteOrder(long id);
 	public OrderDto updateOrder(long id,OrderDto orderDto);
 }

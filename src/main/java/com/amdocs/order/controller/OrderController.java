@@ -35,6 +35,11 @@ public class OrderController {
 		return orderService.createOrder(orderDto);
 	}
 
+	@PostMapping("/createBulkOrder")
+	public List<OrderDto> createOrder(@RequestBody List<OrderDto> orderDtos) throws Exception {
+		return orderService.createBulkOrder(orderDtos);
+	}
+
 	public void deleteOrder(long id)
 	{
 		

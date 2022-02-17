@@ -27,4 +27,11 @@ public class GlobalExceptionHandeler extends ResponseEntityExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(InvalidInputRequestException.class)
+    ResponseEntity<ErrorDetails> invalidInputException(InvalidInputRequestException inputRequestException)
+    {
+        ErrorDetails errorDetails=new ErrorDetails(new Date(),inputRequestException.getMessage(),
+                "Invalid Input request parameters for create order");
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 }

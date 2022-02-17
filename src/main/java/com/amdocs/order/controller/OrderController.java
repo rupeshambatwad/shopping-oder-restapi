@@ -3,6 +3,7 @@ package com.amdocs.order.controller;
 import java.util.List;
 
 import com.amdocs.order.constants.orderConstants;
+import com.amdocs.order.exceptions.InvalidInputRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,13 +32,13 @@ public class OrderController {
 	}
 
 	@PostMapping("/createOrder")
-	public OrderDto createOrder(@RequestBody OrderDto orderDto) throws Exception {
-		return orderService.createOrder(orderDto);
+	public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) throws Exception {
+		return new ResponseEntity<OrderDto>(orderService.createOrder(orderDto), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/createBulkOrder")
-	public List<OrderDto> createOrder(@RequestBody List<OrderDto> orderDtos) throws Exception {
-		return orderService.createBulkOrder(orderDtos);
+	public ResponseEntity<List<OrderDto>> createBulkOrder(@RequestBody List<OrderDto> orderDtos) throws Exception {
+		return new ResponseEntity<List<OrderDto>>(orderService.createBulkOrder(orderDtos), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{orderId}")

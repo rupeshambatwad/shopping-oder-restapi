@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.amdocs.order.constants.orderConstants;
+import com.amdocs.order.exceptions.InvalidInputRequestException;
 import com.amdocs.order.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -36,27 +37,36 @@ public class OrderServiceImpl implements OrderService {
 		return null;
 	}
 
-	@Override
-	public OrderDto createOrder(OrderDto orderDto) throws Exception {
-		Order order;
-		try {
-			order = orderRepository.save(mapToEntity(orderDto));
-		} catch (Exception exc) {
-			throw new Exception("exception occured" +exc.getMessage());
-		}
-		return mapToDto(order);
-	}
+    @Override
+    public OrderDto createOrder(OrderDto orderDto) throws Exception {
+        Order order;
+        if (orderDto.getQty() <= 0
+                || orderDto.getProducts() != null
+                && orderDto.getProducts().size() < 1
+                || orderDto.getPrice() <= 0) {
+            throw new InvalidInputRequestException("101 :", " Create Order request ");
+        }
+        try {
+            order = orderRepository.save(mapToEntity(orderDto));
+        } catch (Exception exception) {
+            throw new Exception("exception occured" + exception.getMessage());
+        }
+        return mapToDto(order);
+    }
 
-	@Override
-	public List<OrderDto> createBulkOrder(List<OrderDto> orderDtos) throws Exception {
-		List<Order> orders = new ArrayList<>();
-		try {
-			orders.addAll(orderRepository.saveAll(mapToEntityList(orderDtos)));
-		} catch (Exception exc) {
-			throw new Exception("exception occured" +exc.getMessage());
-		}
-		return mapToDtoList(orders);
-	}
+    @Override
+    public List<OrderDto> createBulkOrder(List<OrderDto> orderDtos) throws Exception {
+        List<Order> orders = new ArrayList<>();
+        if (orderDtos.size() < 2) {
+            throw new InvalidInputRequestException("102 :"," Create Bulk Order request");
+        }
+        try {
+            orders.addAll(orderRepository.saveAll(mapToEntityList(orderDtos)));
+        } catch (Exception exception) {
+            throw new Exception("exception occured" + exception.getMessage());
+        }
+        return mapToDtoList(orders);
+    }
 
 	@Override
 	public boolean deleteOrder(long id) {

@@ -3,7 +3,9 @@ package com.amdocs.order.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amdocs.order.constants.orderConstants;
 import com.amdocs.order.exceptions.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import com.amdocs.order.entity.Order;
 import com.amdocs.order.repository.OrderRepository;
 
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
@@ -56,8 +59,24 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void deleteOrder(long id) {
-		
+	public boolean deleteOrder(long id) {
+
+		try {
+			if(orderRepository.existsById(id)) {
+				log.info(orderConstants.ORDER_EXISTS);
+				orderRepository.deleteById(id);
+				return true;
+
+			}else{
+				log.info(orderConstants.ORDER_NOT_FOUND);
+				return false;
+
+			}
+		} catch (Exception e){
+			log.error(e.getMessage());
+			throw e;
+		}
+
 	}
 
 	// update order by orderId

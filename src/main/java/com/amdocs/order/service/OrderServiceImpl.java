@@ -2,6 +2,8 @@ package com.amdocs.order.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.amdocs.order.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,9 +62,15 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OrderDto updateOrder(long id,OrderDto orderDto) {
+		Order order=orderRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Order","id :",id));
+		order.setId(orderDto.getId());
+		order.setPrice(orderDto.getPrice());
+		order.setDateTime(orderDto.getDateTime());
+		order.setQty(orderDto.getQty());
+		order.setProducts(orderDto.getProducts());
+		Order updatedOrder=orderRepository.save(order);
 
-		
-		return null;
+		return mapToDto(updatedOrder);
 	}
 
 	private Order mapToEntity(OrderDto dto)

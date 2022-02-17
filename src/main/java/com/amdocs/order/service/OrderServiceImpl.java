@@ -60,10 +60,10 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	// update order by orderId
 	@Override
 	public OrderDto updateOrder(long id,OrderDto orderDto) {
 		Order order=orderRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Order","id :",id));
-		order.setId(orderDto.getId());
 		order.setPrice(orderDto.getPrice());
 		order.setDateTime(orderDto.getDateTime());
 		order.setQty(orderDto.getQty());

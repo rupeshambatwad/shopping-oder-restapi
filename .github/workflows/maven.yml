@@ -27,7 +27,3 @@ jobs:
       - name: Step 4 - List current directory
         run: ls -a
 
-      - name: Step 5 - what is in target folder?
-        run:
-          cd target
-          ls -a

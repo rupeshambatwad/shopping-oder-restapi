@@ -17,18 +17,18 @@ import com.amdocs.order.service.OrderService;
 @RestController
 @RequestMapping("/Order")
 public class OrderController {
-	
+
 	@Autowired
 	OrderService orderService;
 
-	@GetMapping("/{id}")
-	public OrderDto getOrderById(@PathVariable long id)
-	{
-		return null;
+	@GetMapping("findById/{id}")
+	public ResponseEntity<OrderDto> getOrderById(@PathVariable long id) throws Exception{
+		return new ResponseEntity<OrderDto>(orderService.findOrderById(id), HttpStatus.CREATED);
+
 	}
-	public List<OrderDto> getAllOrders()
-	{
-		return null;
+	@GetMapping("/findAll")
+	public ResponseEntity<List<OrderDto>> getAllOrders() throws Exception{
+		return new ResponseEntity<List<OrderDto>>(orderService.findAllOrders(), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/createOrder")
@@ -43,17 +43,17 @@ public class OrderController {
 
 	@DeleteMapping("/{orderId}")
 	public String deleteOrder(@PathVariable("orderId")long id) {
-        log.info("inside delete api");
+		log.info("inside delete api");
 		try {
 
-		boolean isExists = orderService.deleteOrder(id);
+			boolean isExists = orderService.deleteOrder(id);
 
-		if(isExists){
-			log.info(orderConstants.ORDER_DEL_SUCCESS);
-			return orderConstants.ORDER_DEL_SUCCESS;
-		}else{
-			return orderConstants.ORDER_NOT_FOUND;
-		}
+			if(isExists){
+				log.info(orderConstants.ORDER_DEL_SUCCESS);
+				return orderConstants.ORDER_DEL_SUCCESS;
+			}else{
+				return orderConstants.ORDER_NOT_FOUND;
+			}
 
 		} catch (Exception e) {
 			log.error(e.getMessage());

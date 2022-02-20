@@ -1,6 +1,5 @@
 package com.amdocs.order.dto;
 
-import com.amdocs.order.entity.Order;
 import com.amdocs.order.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,4 +20,5 @@ public class OrderDto {
     private int qty;
     private Date dateTime;
     private List<Product> products;
+
 }

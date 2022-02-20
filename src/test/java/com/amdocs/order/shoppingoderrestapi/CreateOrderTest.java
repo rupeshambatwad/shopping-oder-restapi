@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -33,8 +34,8 @@ public class CreateOrderTest {
     void testCreateOrder() throws Exception {
 
         //Dummy Product list
-        List<Product> prodList =  new ArrayList<>();
-        Product prod =  new Product();
+        List<Product> prodList = new ArrayList<>();
+        Product prod = new Product();
         prod.setProdId(123);
         prod.setProdPrice(1234);
         prod.setProdName("Harman");
@@ -59,9 +60,9 @@ public class CreateOrderTest {
         //mocking the database call
         when(orderRepository.save(any())).thenReturn(order);
         OrderDto o = orderService.createOrder(dto);
-        Assertions.assertEquals(true,o!=null);
-        Assertions.assertEquals(true,o.getPrice()>0);
-        Assertions.assertEquals(true,o.getQty()>0);
-        Assertions.assertEquals(true,o.getProducts().size()>0);
+        Assertions.assertEquals(true, o != null);
+        Assertions.assertEquals(true, o.getPrice() > 0);
+        Assertions.assertEquals(true, o.getQty() > 0);
+        Assertions.assertEquals(true, o.getProducts().size() > 0);
     }
 }

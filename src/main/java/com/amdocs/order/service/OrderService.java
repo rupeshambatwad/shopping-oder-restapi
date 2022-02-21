@@ -7,10 +7,10 @@ import com.amdocs.order.entity.Order;
 
 public interface OrderService {
 
-	public OrderDto findOrderById(long id);
-	public List<OrderDto> findAllOrders();
+	public OrderDto findOrderById(long id) throws Exception;
+	public List<OrderDto> findAllOrders() throws Exception;
 	public OrderDto createOrder(OrderDto orderDto) throws Exception;
 	public List<OrderDto> createBulkOrder(List<OrderDto> orderDtos) throws Exception;
-	public void deleteOrder(long id);
+	public boolean deleteOrder(long id);
 	public OrderDto updateOrder(long id,OrderDto orderDto);
 }

@@ -22,7 +22,7 @@ public class Order {
     private long price;
     private int qty;
     private Date dateTime;
-    @OneToMany(targetEntity = Product.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Product.class, cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "ord_prod_pk", referencedColumnName = "id")
     private List<Product> products;
 }

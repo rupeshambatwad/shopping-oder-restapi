@@ -8,7 +8,6 @@ public class ErrorDetails {
     private String description;
 
     public ErrorDetails(Date timestamp, String message, String description) {
-        super();
         this.timestamp = timestamp;
         this.message = message;
         this.description = description;

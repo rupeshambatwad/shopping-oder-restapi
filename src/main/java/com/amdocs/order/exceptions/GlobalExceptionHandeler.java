@@ -34,4 +34,12 @@ public class GlobalExceptionHandeler extends ResponseEntityExceptionHandler {
                 "Invalid Input request parameters for create order");
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+    
+    @ExceptionHandler(OrderNotFoundException.class)
+    ResponseEntity<ErrorDetails> orderNotFoundRecourcesException(OrderNotFoundException orderNotFoundException)
+    {
+        ErrorDetails errorDetails=new ErrorDetails(new Date(),orderNotFoundException.getMessage(),
+                "Invalid Input request parameters for create order");
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 }

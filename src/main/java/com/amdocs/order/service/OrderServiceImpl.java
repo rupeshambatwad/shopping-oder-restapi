@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.amdocs.order.constants.orderConstants;
 import com.amdocs.order.exceptions.InvalidInputRequestException;
+import com.amdocs.order.exceptions.OrderNotFoundException;
 import com.amdocs.order.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -39,6 +40,7 @@ public class OrderServiceImpl implements OrderService {
 
 		}catch(Exception exc) {
 			log.error(exc.getMessage());
+			throw new OrderNotFoundException("102 :"," Order id is not found");
 		}
 		return mapToDto(order);
 	} 
@@ -51,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
 			orders=orderRepository.findAll();
 		}catch(Exception exc) {
 			log.error(exc.getMessage());
+			throw new OrderNotFoundException("102 :"," Order's are not found");
 		}
 		return mapToDtoList(orders);
 	}

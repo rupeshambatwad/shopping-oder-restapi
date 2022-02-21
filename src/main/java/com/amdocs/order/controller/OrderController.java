@@ -21,13 +21,13 @@ public class OrderController {
 
     @GetMapping("findById/{id}")
     public ResponseEntity<OrderDto> getOrderById(@PathVariable long id) throws Exception {
-        return new ResponseEntity<OrderDto>(orderService.findOrderById(id), HttpStatus.CREATED);
+        return new ResponseEntity<OrderDto>(orderService.findOrderById(id), HttpStatus.OK);
 
     }
 
     @GetMapping("/findAll")
     public ResponseEntity<List<OrderDto>> getAllOrders() throws Exception {
-        return new ResponseEntity<List<OrderDto>>(orderService.findAllOrders(), HttpStatus.CREATED);
+        return new ResponseEntity<List<OrderDto>>(orderService.findAllOrders(), HttpStatus.OK);
     }
 
     @PostMapping("/createOrder")
